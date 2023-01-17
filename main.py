@@ -4,6 +4,8 @@ import time
 import xml.etree.ElementTree as ET
 
 import requests
+
+from retry import retry
 from bs4 import BeautifulSoup
 
 GEOCORDING_URL = 'https://www.geocoding.jp/api/'
@@ -12,6 +14,7 @@ ITEM_MAP = {
 }
 
 
+@retry(tries=3, delay=1)
 def get_prefectures_urls(url):
     prefectures_urls = []
 
@@ -43,6 +46,7 @@ def get_coordinates(address):
     return xml.find('lat').text, xml.find('lng').text
 
 
+@retry(tries=10, delay=2)
 def get_spa_info(spa_url, items):
     response = requests.get(spa_url)
     if response.status_code != 200:

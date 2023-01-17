@@ -13,7 +13,7 @@ pipenv install
 ```bash
 python -m venv venv
 source venv/bin/activate
-pip install beautifulsoup4 requests
+pip install beautifulsoup4 requests retry
 ```
 
 ## Usage
